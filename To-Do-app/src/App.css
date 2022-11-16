@@ -1,15 +1,16 @@
 #btn-add {
   margin-left: 10px;
+  margin-top: 10px;
 }
 
-.task, .container span {
+.task {
   display: flex;
   padding: 10px 5px 10px 5px;
-  width: 10%;
+  width: 40%;
   height: 100%;
   position: relative;
   top: -50px;
-  left: 980px;
+  left: 800px;
   box-shadow: 1px 3px 7px #c7c7c7;
   border-radius: 20px;
   justify-content: space-evenly;

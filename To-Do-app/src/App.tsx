@@ -1,17 +1,17 @@
-import React from 'react';
-import Header from './Components/Header';
-import './App.css';
-import Addtask from './Components/Addtask';
+import React from 'react'
+import Header from './Components/Header'
+import './App.css'
+import AddTask from './Components/AddTask' 
 
 function App() {
 
   return (
     <>
       <Header />
-      <Addtask />
+      <AddTask />
     </>
   )
 }
 
-export default App;
+export default App
 
