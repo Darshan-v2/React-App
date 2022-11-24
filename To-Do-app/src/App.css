@@ -1,22 +1,42 @@
-#btn-add {
-  margin-left: 10px;
-  margin-top: 10px;
+body{
+  background-color: #081229;
+}
+
+.btn-flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 50px;
+}
+
+#btn-addtask {
+  width: 250px;
+  height: 50px;
+  border-radius: 50px;
+  font-size: 18px;
+}
+
+.taskList {
+  display: flex;
+  justify-content: center;
 }
 
 .task {
   display: flex;
-  padding: 10px 5px 10px 5px;
+  padding: 10px 15px 10px 5px;
   width: 40%;
-  height: 100%;
-  position: relative;
-  top: -50px;
-  left: 800px;
-  box-shadow: 1px 3px 7px #c7c7c7;
+  height: 50px;
+  box-shadow: 1px 3px 7px #626262;
   border-radius: 20px;
   justify-content: space-evenly;
   align-items: center;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   margin-bottom: 20px;
+  background-color: white;
+}
+
+.tList {
+  display: flex;
 }
 
 #btn-delete {
@@ -27,8 +47,40 @@
   align-items: center;
   flex-wrap: nowrap;
   transition: 0.3s;
+  cursor: pointer;
 }
 
 #btn-delete:hover {
   transform: scale(1.2);
+}
+
+#btn-edit {
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#btn-edit:hover {
+  transform: scale(1.2);
+}
+
+#btn-agree{
+  color: red;
+}
+
+#tableHeader{
+  width: 40%;
+  position: relative;
+  top: -130px;
+  left: 552px;
+}
+
+#tableRow {
+  width: 50%;
+  background-color: white; 
+}
+
+#tableRowAlign{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }

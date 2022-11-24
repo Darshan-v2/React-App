@@ -4,7 +4,6 @@ import { Grid } from '@material-ui/core';
 
 const useStyles = makeStyles({
     header: {
-        backgroundColor: '#282c34',
         textAlign: 'center',
         color: 'white',
         fontSize: '25px',
