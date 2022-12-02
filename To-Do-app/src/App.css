@@ -1,4 +1,4 @@
-body{
+body {
   background-color: #081229;
 }
 
@@ -16,12 +16,12 @@ body{
   font-size: 18px;
 }
 
-.taskList {
+.tableTaskList {
   display: flex;
   justify-content: center;
 }
 
-.task {
+.tableTask {
   display: flex;
   padding: 10px 15px 10px 5px;
   width: 40%;
@@ -33,10 +33,14 @@ body{
   flex-wrap: wrap;
   margin-bottom: 20px;
   background-color: white;
+  position: relative;
+  column-gap: 30px;
 }
 
-.tList {
+.task {
   display: flex;
+  position: relative;
+  gap: 75px;
 }
 
 #btn-delete {
@@ -48,6 +52,8 @@ body{
   flex-wrap: nowrap;
   transition: 0.3s;
   cursor: pointer;
+  position: relative;
+  bottom: 12px;
 }
 
 #btn-delete:hover {
@@ -57,30 +63,79 @@ body{
 #btn-edit {
   cursor: pointer;
   transition: 0.3s;
+  position: relative;
+  top: 14px;
+  right: 40px;
 }
 
 #btn-edit:hover {
   transform: scale(1.2);
 }
 
-#btn-agree{
+#btn-agree {
   color: red;
 }
 
-#tableHeader{
-  width: 40%;
-  position: relative;
-  top: -130px;
-  left: 552px;
-}
-
-#tableRow {
-  width: 50%;
-  background-color: white; 
-}
-
-#tableRowAlign{
+.email {
+  color: white;
   display: flex;
-  justify-content: center;
+  flex-direction: row-reverse;
+  position: relative;
+  right: 70px;
+  bottom: 50px;
+}
+
+#logout {
+  color: #ff7272;
+  float: right;
+  position: relative;
+  bottom: 88px;
+  right: 35px;
+  font-size: 25px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#logout:hover {
+  transform: scale(1.2);
+}
+
+.inputBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   flex-wrap: wrap;
+  position: relative;
+  top: 350px;
+}
+
+.emailInputBox {
+  position: relative;
+  bottom: 10px;
+  height: 40px;
+  border-radius: 25px;
+  border: none;
+  width: 20%;
+}
+
+.passwordInputBox {
+  position: relative;
+  top: 10px;
+  height: 40px;
+  border-radius: 25px;
+  border: none;
+  width: 20%;
+}
+
+#btn-login {
+  position: relative;
+  top: 25px;
+  width: 10%;
+  height: 40px;
+  border-radius: 20px;
+}
+
+input, input::placeholder {
+  padding-left: 10px;
+  font-size: 15px;
 }

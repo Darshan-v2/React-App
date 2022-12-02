@@ -45,59 +45,57 @@ function AddTask() {
     }
 
     return (
-        <>
-            <Grid>
-                <Grid className='btn-flex'>
-                    <Button id='btn-addtask' variant='contained' onClick={handleClickOpen}>Add Task</Button>
-                </Grid>
-
-                <TodoTaskList todoList={todoList} setTodoList={setTodoList} />
-
-                <Dialog open={open} onClose={handleClose}>
-
-                    <DialogTitle>Add-Task</DialogTitle>
-
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <DialogContent>
-
-                            <DialogContentText>
-                                Please provide the Name of the Task and Description below
-                            </DialogContentText>
-
-                            <TextField
-                                {...register('taskName', { required: true })}
-                                autoFocus
-                                margin='normal'
-                                label='TaskName'
-                                id='TaskName'
-                                name='taskName'
-                                type='text'
-                                fullWidth
-                                variant='outlined' />
-                            {errors.taskName && <span className={classes.validText}>This field cannot be Empty</span>}
-
-                            <TextField
-                                {...register('description', { required: true })}
-                                autoFocus
-                                margin='normal'
-                                label='Description'
-                                id='description'
-                                name='description'
-                                type='text'
-                                fullWidth
-                                variant='outlined' />
-                            {errors.description && <span className={classes.validText}>This field cannot be Empty</span>}
-
-                        </DialogContent>
-
-                        <DialogActions>
-                            <Button onClick={handleClose}>Cancel</Button>
-                            <Button type='submit'>Save</Button>
-                        </DialogActions>
-                    </form>
-                </Dialog>
+        <Grid>
+            <Grid className='btn-flex'>
+                <Button id='btn-addtask' variant='contained' onClick={handleClickOpen}>Add Task</Button>
             </Grid>
-        </>
+
+            <TodoTaskList todoList={todoList} setTodoList={setTodoList} />
+
+            <Dialog open={open} onClose={handleClose}>
+
+                <DialogTitle>Add-Task</DialogTitle>
+
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <DialogContent>
+
+                        <DialogContentText>
+                            Please provide the Name of the Task and Description below
+                        </DialogContentText>
+
+                        <TextField
+                            {...register('taskName', { required: true })}
+                            autoFocus
+                            margin='normal'
+                            label='TaskName'
+                            id='TaskName'
+                            name='taskName'
+                            type='text'
+                            fullWidth
+                            variant='outlined' />
+                        {errors.taskName && <span className={classes.validText}>This field cannot be Empty</span>}
+
+                        <TextField
+                            {...register('description', { required: true })}
+                            autoFocus
+                            margin='normal'
+                            label='Description'
+                            id='description'
+                            name='description'
+                            type='text'
+                            fullWidth
+                            variant='outlined' />
+                        {errors.description && <span className={classes.validText}>This field cannot be Empty</span>}
+
+                    </DialogContent>
+
+                    <DialogActions>
+                        <Button onClick={handleClose}>Cancel</Button>
+                        <Button type='submit'>Save</Button>
+                    </DialogActions>
+                </form>
+            </Dialog>
+        </Grid>
     )
 }
 

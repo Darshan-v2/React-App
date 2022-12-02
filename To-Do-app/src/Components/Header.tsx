@@ -1,6 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core'
-import { Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core'
 
 const useStyles = makeStyles({
     header: {
@@ -8,6 +8,7 @@ const useStyles = makeStyles({
         color: 'white',
         fontSize: '25px',
         padding: '10px',
+        backgroundColor: '#162f40'
     },
 })
 
