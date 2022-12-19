@@ -2,7 +2,6 @@ import React, { Dispatch, SetStateAction } from 'react'
 import { Grid } from '@material-ui/core'
 import { ITask } from '../Interface'
 import TodoTask from './TodoTask'
-
 interface Props {
     todoList: ITask[]
     setTodoList: Dispatch<SetStateAction<ITask[]>>
@@ -49,7 +48,7 @@ function TodoTaskList({ todoList, setTodoList }: Props) {
 
             <Grid>
                 {todoList.map((task) => {
-                    return <TodoTask task={task} description={task.description} id={task.id} date={task.date} onDelete={deleteTask} onEdit={editTask} />
+                    return <TodoTask id={task.id} task={task} description={task.description} date={task.date} onDelete={deleteTask} onEdit={editTask} />
                 })}
             </Grid>
         </>

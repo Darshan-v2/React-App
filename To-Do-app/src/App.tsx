@@ -9,14 +9,40 @@ import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
-import { Button } from '@material-ui/core'
+import { Button, makeStyles } from '@material-ui/core'
+import { useDispatch } from 'react-redux'
+import { login, logout } from './features/userSlice'
+import { useSelector } from 'react-redux'
+import { selectUser } from './features/userSlice'
+
+const useStyles = makeStyles({
+  loginText: {
+    textAlign: 'center',
+    fontSize: '40px',
+    color: 'white',
+    position: 'relative',
+    top: '210px'
+  }
+})
+
+// const successLocalStorage = JSON.parse(localStorage.getItem("success") || "[]")
 
 function App() {
 
+  const classes = useStyles()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [success, setSuccess] = React.useState(false)
   const [open, setOpen] = useState(false)
+
+  const { loggedIn } = useSelector(selectUser)
+  const { username } = useSelector(selectUser)
+
+  const dispatch = useDispatch()
+
+  // useEffect(() => {
+  //   localStorage.setItem("email", JSON.stringify(email))
+  //   localStorage.setItem("password", JSON.stringify(password))
+  // }, [email, password])
 
   const openSignoutModal = () => {
     setOpen(true)
@@ -37,15 +63,18 @@ function App() {
   }
 
   const logOut = () => {
-    setSuccess(false)
     setEmail('')
     setPassword('')
+    dispatch(logout({
+      loggedIn: false
+    }))
+    console.log(logout)
   }
 
   const handleSubmit = () => {
     if (email === '' || password === '') {
       alert('Invalid Email or Password')
-      setSuccess(false)
+      closeSignoutModal()
     }
 
     else {
@@ -55,51 +84,48 @@ function App() {
       })
         .then(result => {
           alert('Logged in Successful')
-          setSuccess(true)
-          console.log(result);
+          closeSignoutModal()
           localStorage.setItem("token", result.data.token)
+          dispatch(login({
+            email: email,
+            password: password,
+            loggedIn: true,
+          }))
         })
         .catch(error => {
           alert('Invalid Email or Password')
-          setSuccess(false)
-          console.log(error);
+          dispatch(logout({
+            loggedIn: false
+          }))
         })
     }
   }
-
-  if (success) {
-
-    return (
-      <>
-        <Header />
-        <p className='email'>Welcome | {email} |</p>
-
-        <PowerSettingsNewIcon id='logout' onClick={openSignoutModal} />
-
-        <Dialog open={open} onClose={closeSignoutModal} >
-          <DialogTitle>
-            {"Confirm Delete"}
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Are you sure you want to signout?
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={closeSignoutModal}>Cancel</Button>
-            <Button id="btn-agree" onClick={logOut}>
-              Sign-out
-            </Button>
-          </DialogActions>
-        </Dialog>
-
-        <AddTask />
-      </>
-    )
-  }
-
-  return (
+  return loggedIn ? (
     <>
+      <Header />
+      <p className='email'>Welcome | {username} |</p>
+      <PowerSettingsNewIcon id='logout' onClick={openSignoutModal} />
+      <Dialog open={open} onClose={closeSignoutModal} >
+        <DialogTitle>
+          {"Confirm Delete"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to signout?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closeSignoutModal}>Cancel</Button>
+          <Button id="btn-agree" onClick={logOut}>
+            Sign-out
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <AddTask />
+    </>
+  ) : (
+    <>
+      <p className={classes.loginText}>Sign-in</p>
       <div className='inputBox'>
         <input type="text" placeholder="Email"
           value={email}
