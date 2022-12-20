@@ -1,5 +1,5 @@
 body {
-  background-color: #081229;
+  background-color: #101e36;
 }
 
 .btn-flex {
@@ -14,6 +14,8 @@ body {
   height: 50px;
   border-radius: 50px;
   font-size: 18px;
+  position: absolute;
+  bottom: 730px;
 }
 
 .tableTaskList {
@@ -33,7 +35,8 @@ body {
   flex-wrap: wrap;
   margin-bottom: 20px;
   background-color: white;
-  position: relative;
+  position: absolute;
+  bottom: 580px;
   column-gap: 30px;
 }
 
@@ -80,16 +83,16 @@ body {
   color: white;
   display: flex;
   flex-direction: row-reverse;
-  position: relative;
+  position: absolute;
   right: 70px;
-  bottom: 50px;
+  bottom: 860px;
 }
 
 #logout {
   color: #ff7272;
   float: right;
-  position: relative;
-  bottom: 88px;
+  position: absolute;
+  bottom: 872px;
   right: 35px;
   font-size: 25px;
   cursor: pointer;
@@ -135,7 +138,62 @@ body {
   border-radius: 20px;
 }
 
-input, input::placeholder {
+input,
+input::placeholder {
   padding-left: 10px;
   font-size: 15px;
+}
+
+.card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.cards {
+  display: flex;
+  flex-direction: row;
+  column-gap: 10px;
+  position: relative;
+  height: 130px;
+}
+
+#btn-user {
+  position: absolute;
+  bottom: 870px;
+  left: 10px;
+}
+
+.container {
+  width: 25%;
+  height: 250px;
+  margin-left: 10px;
+  margin-top: 10px;
+  background-color: white;
+}
+
+.userimg {
+  border-radius: 50%;
+  width: 55%;
+  padding: 10px 20px 4px 30px;
+}
+
+.content-block {
+  font-size: 15px;
+  position: relative;
+  right: 35px;
+  top: 10px;
+}
+
+.user-email {
+  border-bottom: 1px solid #6b6b6b;
+  width: 150%;
+  height: 25%;
+}
+
+.loading {
+  padding: 0px 10px 10px 40px;
+  color: #626262;
+  font-size:15px ;
 }

@@ -18,17 +18,11 @@ const useStyles = makeStyles({
     }
 })
 
-// const todoListLocalStorage = JSON.parse(localStorage.getItem("todoList") || "[]")
-
 function AddTask() {
 
     const classes = useStyles()
     const [todoList, setTodoList] = useState<ITask[]>([])
     const [open, setOpen] = useState(false)
-
-    // useEffect(() => {
-    //     localStorage.setItem("todoList", JSON.stringify(todoList))
-    // }, [todoList])
 
     const handleClickOpen = () => {
         reset()
@@ -45,7 +39,6 @@ function AddTask() {
         const id = todoList.length + 1
         const date = new Date()
         const newTask = { taskName: data.taskName, description: data.description, id: id, date: date }
-        // todoList.push(newTask)
         setTodoList([...todoList, newTask])
         reset()
         handleClose()

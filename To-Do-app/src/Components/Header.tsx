@@ -15,7 +15,7 @@ const useStyles = makeStyles({
 function Header() {
     const classes = useStyles();
     return (
-        <Grid className={classes.header}>To Do List</Grid>
+            <Grid className={classes.header}>To Do List</Grid>
     )
 }
 

@@ -14,6 +14,8 @@ import { useDispatch } from 'react-redux'
 import { login, logout } from './features/userSlice'
 import { useSelector } from 'react-redux'
 import { selectUser } from './features/userSlice'
+import { BrowserRouter, Route, Routes, Link } from 'react-router-dom'
+import PageScrollingInfinite from './Components/PageScrollingInfinite'
 
 const useStyles = makeStyles({
   loginText: {
@@ -25,24 +27,14 @@ const useStyles = makeStyles({
   }
 })
 
-// const successLocalStorage = JSON.parse(localStorage.getItem("success") || "[]")
-
 function App() {
 
   const classes = useStyles()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const { loggedIn, username } = useSelector(selectUser)
   const [open, setOpen] = useState(false)
-
-  const { loggedIn } = useSelector(selectUser)
-  const { username } = useSelector(selectUser)
-
   const dispatch = useDispatch()
-
-  // useEffect(() => {
-  //   localStorage.setItem("email", JSON.stringify(email))
-  //   localStorage.setItem("password", JSON.stringify(password))
-  // }, [email, password])
 
   const openSignoutModal = () => {
     setOpen(true)
@@ -95,6 +87,8 @@ function App() {
         .catch(error => {
           alert('Invalid Email or Password')
           dispatch(logout({
+            email: email,
+            password: password,
             loggedIn: false
           }))
         })
@@ -103,8 +97,18 @@ function App() {
   return loggedIn ? (
     <>
       <Header />
-      <p className='email'>Welcome | {username} |</p>
-      <PowerSettingsNewIcon id='logout' onClick={openSignoutModal} />
+
+      <BrowserRouter>
+        <Routes>
+          <Route path='/userprofiles' element={<PageScrollingInfinite />} />
+        </Routes>
+
+        <Link to="/userprofiles"><Button variant='contained' id="btn-user">User Profile</Button></Link>
+        <p className='email'>Welcome | {username} |</p>
+        <Link to="/"><PowerSettingsNewIcon id='logout'onClick={openSignoutModal}/></Link>
+     
+      </BrowserRouter>
+
       <Dialog open={open} onClose={closeSignoutModal} >
         <DialogTitle>
           {"Confirm Delete"}

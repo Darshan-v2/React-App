@@ -12,6 +12,7 @@ export const userSlice = createSlice({
         },
 
         logout: (state, action) => {
+            state.user = action.payload.email
             state.loggedIn = false
         }
     }
