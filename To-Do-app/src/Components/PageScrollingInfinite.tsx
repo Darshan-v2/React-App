@@ -14,7 +14,7 @@ const PageScrollingInfinite = () => {
     const Per_Page = 2
     const apiPath = "https://reqres.in/api/users"
     const [UserLists, setUserLists] = useState<Array<IUser>>([])
-    const [total, setTotal] = React.useState<Number>(0)
+    const [total, setTotal] = useState<Number>(0)
 
     const getList = () => {
         const perpage = (UserLists.length / Per_Page) + 1
@@ -52,7 +52,7 @@ const PageScrollingInfinite = () => {
                     hasMore={UserLists.length < total}
                     loader={<h4 className="loading">Loading...</h4>}>
 
-                    {UserLists && UserLists.length >= 0 && UserLists.map((key) => {
+                    {UserLists?.map((key) => {
 
                         return (
                             <>
