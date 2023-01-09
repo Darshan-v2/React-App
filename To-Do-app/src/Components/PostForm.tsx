@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form'
 import { Button } from '@material-ui/core'
 import EditForm from './EditForm'
 import { IUser } from '../Interface'
+import Box from '@mui/material/Box'
 
 const useStyles = makeStyles({
   validText: {
@@ -76,9 +77,9 @@ function PostForm() {
       })
   }
   const deleteTask = (id: number) => {
+    // eslint-disable-next-line
     api.delete('${id}');
     setUsers(users.filter((u) => u.id !== id))
-    console.log("D", id);
   }
 
   const getUser = () => {
@@ -94,6 +95,7 @@ function PostForm() {
 
   useEffect(() => {
     getUser()
+    // eslint-disable-next-line
   }, [])
 
   return !loggedIn ? (
@@ -107,28 +109,47 @@ function PostForm() {
             <DialogTitle>Create Profile</DialogTitle>
 
             <DialogContent>
-              <TextField
-                {...register('email', { required: true })}
-                autoFocus
-                margin='normal'
-                label='Email'
-                name='email'
-                type='text'
-                fullWidth
-                variant='outlined'
-              />
-              {errors.email && <span className={classes.validText}>This field cannot be Empty</span>}
-              <TextField
-                {...register('first_name', { required: true })}
-                autoFocus
-                margin='normal'
-                label='First_name'
-                name='first_name'
-                type='text'
-                fullWidth
-                variant='outlined'
-              />
-              {errors.first_name && <span className={classes.validText}>This field cannot be Empty</span>}
+              <Box
+                component="form"
+                sx={{
+                  '& .MuiTextField-root': { m: 2, width: '40ch' },
+                }}
+                noValidate
+                autoComplete="off"
+              >
+                <TextField
+                  {...register('email', {
+                    required: 'Email is required',
+                    pattern: {
+                      value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                      message: 'Enter a valid Email'
+                    },
+                  })}
+                  autoFocus
+                  margin='normal'
+                  label='Email'
+                  name='email'
+                  type='text'
+                  fullWidth
+                  variant='outlined'
+                  error={!!errors["email"]}
+                  helperText={
+                    errors["email"] ? errors["email"].message
+                      : ""
+                  }
+                />
+                <TextField
+                  {...register('first_name')}
+                  autoFocus
+                  margin='normal'
+                  label='First_name'
+                  name='first_name'
+                  type='text'
+                  fullWidth
+                  variant='outlined'
+                />
+                {errors.first_name && <span className={classes.validText}>This field cannot be Empty</span>}
+              </Box>
             </DialogContent>
 
             <DialogActions>
@@ -145,15 +166,17 @@ function PostForm() {
     <>
       {users.map((u: IUser) => {
         return (
-          <div>
-            <div className='createTask'>
-              <h3>
-                {u?.first_name} {u?.last_name}
-              </h3>
-              <div>{u?.email}</div>
-              <Button onClick={() => { handleEdit(u) }}>Edit</Button>
-              <Button onClick={() => deleteTask(u.id)}>Delete</Button>
+          <div key={u.id}>
+            <div>
+              <div className='createTask'>
+                <h3>
+                  {u?.first_name} {u?.last_name}
+                </h3>
+                <div>{u?.email}</div>
+                <Button onClick={() => { handleEdit(u) }}>Edit</Button>
+                <Button onClick={() => deleteTask(u.id)}>Delete</Button>
 
+              </div>
             </div>
           </div>
         )
