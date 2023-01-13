@@ -1,12 +1,21 @@
 body {
   background-color: #101e36;
+  /* background-color: white; */
 }
 
-.btn-flex {
+.btn-flex,
+.btn-create {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   padding: 50px;
+}
+
+#btn-createtask {
+  width: 240px;
+  height: 45px;
+  border-radius: 15px;
+  font-size: 16px;
 }
 
 #btn-addtask {
@@ -109,7 +118,7 @@ body {
   align-items: center;
   flex-wrap: wrap;
   position: relative;
-  top: 220px;
+  top: 150px;
 }
 
 .emailInputBox {
@@ -157,20 +166,22 @@ input::placeholder {
   column-gap: 10px;
   position: relative;
   height: 130px;
+  width: 440px;
+  color: white;
 }
 
 #btn-user {
-  position: absolute;
-  bottom: 870px;
-  left: 10px;
+  position: relative;
+  left: 46%;
+  top: 180px;
 }
 
 .container {
-  width: 25%;
+  display: grid;
   height: 250px;
-  margin-left: 10px;
-  margin-top: 10px;
-  background-color: white;
+  align-content: space-between;
+  justify-items: center;
+  margin-top: 50px;
 }
 
 .userimg {
@@ -187,13 +198,43 @@ input::placeholder {
 }
 
 .user-email {
-  border-bottom: 1px solid #6b6b6b;
+  border-bottom: 1px solid white;
   width: 150%;
   height: 25%;
 }
 
 .loading {
   padding: 0px 10px 10px 40px;
-  color: #626262;
-  font-size:15px ;
+  color: white;
+  font-size: 15px;
 }
+
+#visbilityIcon {
+  position: relative;
+  left: 150px;
+  bottom: 28px;
+}
+
+#btn-mainLogin {
+  position: relative;
+  bottom: 42px;
+  right: 15px;
+  float: right;
+  color: white;
+  border-radius: 5px;
+  padding: 5px 30px 5px 30px;
+  background-color: #00b398c2;
+}
+
+.apiNames,
+#apiActions{
+  color: white;
+  text-align: center;
+}
+
+#navBarList {
+  color: white;
+  position: relative;
+  left: 37%;
+}
+

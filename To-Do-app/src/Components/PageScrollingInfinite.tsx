@@ -1,33 +1,37 @@
 import axios from "axios"
 import React, { useEffect, useState } from "react"
 import InfiniteScroll from "react-infinite-scroll-component"
-
 interface IUser {
     avatar: string
     first_name: string
     last_name: string
     email: string
+    id: number
 }
 
-const PageScrollingInfinite = () => {
+function PageScrollingInfinite() {
 
     const Per_Page = 2
-    const apiPath = "https://reqres.in/api/users"
-    const [UserLists, setUserLists] = useState<Array<IUser>>([])
+    const [userLists, setUserLists] = useState<Array<IUser>>([])
     const [total, setTotal] = useState<Number>(0)
+    const [page, setPage] = useState<number>(1)
 
     const getList = () => {
-        const perpage = (UserLists.length / Per_Page) + 1
-        const pagechange = "?page=" + perpage + "&per_page=" + Per_Page
-        const finalUrl = apiPath + pagechange
+        // const pagecount = (Per_Page) + 1
 
-        axios.get(finalUrl)
+        axios
+            .get("https://reqres.in/api/users?", {
+                params: {
+                    page: page,
+                    Per_Page: Per_Page
+                }
+            })
             .then((res) => {
                 const apiRes = res.data.data
-                setTotal(res.data.total)
-                console.log("total", setTotal)
-                const mergeData = [...UserLists, ...apiRes]
+                const mergeData = [...userLists, ...apiRes]
                 setUserLists(mergeData)
+                setPage(res.data.page)
+                setTotal(res.data.total)
             })
             .catch((err) => {
                 console.error("Loading Error", err)
@@ -36,10 +40,12 @@ const PageScrollingInfinite = () => {
 
     useEffect(() => {
         getList()
-    }, [])
+        // eslint-disable-next-line
+    }, [page])
 
     const fetchMoreData = () => {
-        setTimeout(() => getList(), 1000)
+        setInterval(() =>
+            setPage(page + 1), 1000)
     }
 
     return (
@@ -47,15 +53,14 @@ const PageScrollingInfinite = () => {
             <div className='container'>
                 <InfiniteScroll
                     height={"250px"}
-                    dataLength={UserLists.length}
+                    dataLength={userLists.length}
                     next={fetchMoreData}
-                    hasMore={UserLists.length < total}
+                    hasMore={userLists.length < total}
                     loader={<h4 className="loading">Loading...</h4>}>
 
-                    {UserLists?.map((key) => {
-
+                    {userLists?.map((key) => {
                         return (
-                            <>
+                            <div key={key.id}>
                                 <div className='cards'>
                                     <div className="image-block">
                                         <img
@@ -67,14 +72,14 @@ const PageScrollingInfinite = () => {
                                     <div className='content-block'>
                                         <div>
                                             <h3>
-                                                {key?.first_name} {key?.last_name}
+                                                {key?.id}. {key?.first_name} {key?.last_name}
                                             </h3>
                                         </div>
                                         <div className="user-email">{key?.email}
                                         </div>
                                     </div>
                                 </div>
-                            </>
+                            </div>
                         )
                     })}
                 </InfiniteScroll>

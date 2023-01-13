@@ -9,7 +9,6 @@ const useStyles = makeStyles({
         color: '#ee2b2b'
     }
 })
-
 interface IProps {
     open: boolean
     handleClickClose(): void
@@ -18,11 +17,9 @@ interface IProps {
 }
 
 function EditForm({ open, handleClickClose, u, updateTask }: IProps) {
-    console.log("USerrrrrrrrrr", u)
     const { register, setValue, handleSubmit, formState: { errors } } = useForm<IUser>()
     const classes = useStyles()
     const onSave = (data: IUser) => {
-        console.log("Dataaaaaaaaaaaaaaaaaaaa", data)
         updateTask(data)
     };
 
@@ -31,6 +28,7 @@ function EditForm({ open, handleClickClose, u, updateTask }: IProps) {
             setValue("email", u.email)
             setValue("first_name", u.first_name)
         }
+        // eslint-disable-next-line
     }, [u])
 
     return (

@@ -6,6 +6,8 @@ import { Button } from '@material-ui/core'
 import EditForm from './EditForm'
 import { IUser } from '../Interface'
 import Box from '@mui/material/Box'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as Yup from 'yup'
 
 const useStyles = makeStyles({
   validText: {
@@ -16,12 +18,17 @@ const useStyles = makeStyles({
 
 function PostForm() {
 
+  const validationSchema = Yup.object().shape({
+    email: Yup.string().required('Email is required').email('Email is invalid')
+  })
+
   const classes = useStyles()
   const [users, setUsers] = useState<IUser[]>([])
   const [user, setUser] = useState<IUser>()
   const [open, setOpen] = useState(false)
   const [loggedIn, setLogin] = React.useState(false)
-  const { register, handleSubmit, formState: { errors } } = useForm<IUser>()
+  const { register, handleSubmit, formState: { errors } } = useForm<IUser>
+    ({ mode: 'onChange', resolver: yupResolver(validationSchema) })
 
   const handleEdit = (u: IUser) => {
     setOpen(true)
@@ -112,19 +119,21 @@ function PostForm() {
               <Box
                 component="form"
                 sx={{
-                  '& .MuiTextField-root': { m: 2, width: '40ch' },
+                  '& .MuiTextField-root': { margin: 2, width: '200px' },
                 }}
                 noValidate
                 autoComplete="off"
               >
                 <TextField
-                  {...register('email', {
-                    required: 'Email is required',
-                    pattern: {
-                      value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                      message: 'Enter a valid Email'
-                    },
-                  })}
+                  {...register('email'
+                    // , {
+                    //   required: 'Email is required',
+                    //   pattern: {
+                    //     value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                    //     message: 'Enter a valid Email'
+                    //   },
+                    // }
+                  )}
                   autoFocus
                   margin='normal'
                   label='Email'
@@ -134,15 +143,14 @@ function PostForm() {
                   variant='outlined'
                   error={!!errors["email"]}
                   helperText={
-                    errors["email"] ? errors["email"].message
-                      : ""
+                    errors["email"] ? errors["email"].message : ""
                   }
                 />
                 <TextField
                   {...register('first_name')}
                   autoFocus
                   margin='normal'
-                  label='First_name'
+                  label='First Name'
                   name='first_name'
                   type='text'
                   fullWidth
@@ -168,14 +176,13 @@ function PostForm() {
         return (
           <div key={u.id}>
             <div>
-              <div className='createTask'>
+              <div className='apiNames'>
                 <h3>
                   {u?.first_name} {u?.last_name}
                 </h3>
                 <div>{u?.email}</div>
-                <Button onClick={() => { handleEdit(u) }}>Edit</Button>
-                <Button onClick={() => deleteTask(u.id)}>Delete</Button>
-
+                <Button onClick={() => { handleEdit(u)}} id='apiActions'>Edit</Button>
+                <Button onClick={() => deleteTask(u.id)} id='apiActions'>Delete</Button>
               </div>
             </div>
           </div>
